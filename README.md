@@ -39,6 +39,14 @@ This is to prevent re-trying every tweet if you stop and run it again. If you wa
 
 Once a rate limit is hit, twitter-cleaner will wait and try again. So you can basically just leave it alone and it will figure itself out.
 
+## API Keys
+
+To get all the keys needed, you'll need to [create a new twitter app](https://developer.twitter.com/en/portal/apps/new).
+
+Then, go to the app's *Settings* > *Keys and tokens*. There you'll find the **API key & secret** (`--twitter-consumer-key` and `--twitter-consumer-secret`) and can generate the **Access token & secret** (`--twitter-access-token` and `--twitter-access-token-secret`).
+
+You can pass them via flags, environment variables or via `.env` file.
+
 ## Acknowledgements
 
 This tool is heavily based on https://github.com/karan/fleets, which the main difference being that it only deletes from timeline, while this one deletes from the archive as well.
