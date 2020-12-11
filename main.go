@@ -23,7 +23,7 @@ import (
 var (
 	version           = "dev"
 	app               = kingpin.New("twitter-cleaner", "clean up old twitter tweets and likes")
-	keeplist          = app.Flag("keeplist", "do not delete tweets that contain these words or tweet IDs").Strings()
+	keeplist          = app.Flag("keep", "do not delete tweets that contain these words or tweet IDs").Strings()
 	maxAge            = app.Flag("max-age", "delete tweets older than this").Default("720h").Duration()
 	consumerKey       = app.Flag("twitter-consumer-key", "your twitter consumer key").Envar("TWITTER_CONSUMER_KEY").Required().String()
 	consumerSecret    = app.Flag("twitter-consumer-secret", "your twitter consumer secret").Envar("TWITTER_CONSUMER_SECRET").Required().String()
