@@ -14,3 +14,12 @@ changelog:
     exclude:
       - '^docs:'
       - '^test:'
+nfpms:
+  - vendor: Becker Software LTDA
+    homepage: https://carlosbecker.com
+    maintainer: Carlos Becker <root@carlosbecker.dev>
+    description: Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
+    formats:
+      - deb
+      - apk
+      - rpm
