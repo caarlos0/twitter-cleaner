@@ -367,6 +367,7 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 }
 
 func main() {
+	app.UsageTemplate(kingpin.SeparateOptionalFlagsUsageTemplate)
 	app.Author("Carlos Alexandro Becker <root@carlosbecker.dev>")
 	app.Version("twitter-cleaner version " + version)
 	app.VersionFlag.Short('v')
