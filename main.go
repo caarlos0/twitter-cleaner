@@ -17,7 +17,6 @@ import (
 	"github.com/alecthomas/kingpin"
 	"github.com/apex/log"
 	"github.com/apex/log/handlers/cli"
-	"github.com/fatih/color"
 	_ "github.com/joho/godotenv/autoload"
 )
 
@@ -31,6 +30,7 @@ var (
 	accessToken       = app.Flag("twitter-access-token", "your twitter access token").Envar("TWITTER_ACCESS_TOKEN").Required().String()
 	accessTokenSecret = app.Flag("twitter-access-token-secret", "your twitter access token secret").Envar("TWITTER_ACCESS_TOKEN_SECRET").Required().String()
 	archiveFolder     = app.Flag("twitter-archive-path", "path to the twitter archive, if you pass this flag, twitter-cleaner will try to delete your tweets from there too").File()
+	debug             = app.Flag("debug", "enables debug logs").Bool()
 )
 
 func getTimeline(api *anaconda.TwitterApi, maxID string) ([]anaconda.Tweet, error) {
@@ -115,14 +115,14 @@ func deleteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 			"id":   t.Id,
 			"time": createdTime,
 			"text": t.Text,
-		}).Info("unretweeting tweet")
+		}).Debug("unretweeting tweet")
 		_, derr = api.UnRetweet(t.Id, true)
 	} else if !t.Favorited {
 		log.WithFields(log.Fields{
 			"id":   t.Id,
 			"time": createdTime,
 			"text": t.Text,
-		}).Info("deleting tweet")
+		}).Debug("deleting tweet")
 		_, derr = api.DeleteTweet(t.Id, true)
 	}
 
@@ -187,7 +187,7 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 		"id":   t.Id,
 		"time": createdTime,
 		"text": t.Text,
-	}).Info("unfavoriting tweet")
+	}).Debug("unfavoriting tweet")
 	if _, err := api.Unfavorite(t.Id); err != nil {
 		var aerr *anaconda.ApiError
 		if errors.As(err, &aerr) {
@@ -374,7 +374,9 @@ func main() {
 	_ = kingpin.MustParse(app.Parse(os.Args[1:]))
 
 	log.SetHandler(cli.Default)
-	color.NoColor = false
+	if *debug {
+		log.SetLevel(log.DebugLevel)
+	}
 
 	anaconda.SetConsumerKey(*consumerKey)
 	anaconda.SetConsumerSecret(*consumerSecret)
