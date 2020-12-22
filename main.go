@@ -235,8 +235,9 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 
 	var deletedCount int64
 	for _, t := range tweets {
+		var log = log.WithField("id", t.Tweet.ID)
 		if bytes.Contains(ids, []byte(t.Tweet.ID)) {
-			// ignoring handled tweet
+			log.Debug("ignoring tweet handled in previous runs")
 			continue
 		}
 		tweet, err := getTweet(api, t.Tweet.ID)
@@ -244,6 +245,7 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 			return err
 		}
 		if tweet.Id == 0 { // empty tweet, 404 probably
+			log.Debug("couldn't find tweet")
 			if _, err := f.WriteString(t.Tweet.ID + "\n"); err != nil {
 				return err
 			}
@@ -336,8 +338,9 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 
 	var unfavCount int64
 	for _, t := range likes {
+		var log = log.WithField("id", t.Like.TweetID)
 		if bytes.Contains(ids, []byte(t.Like.TweetID)) {
-			// ignoring handled tweet
+			log.Debug("ignoring tweet handled in previous runs")
 			continue
 		}
 		tweet, err := getTweet(api, t.Like.TweetID)
@@ -345,6 +348,7 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 			return err
 		}
 		if tweet.Id == 0 { // empty tweet, 404 probably
+			log.Debug("couldn't find tweet")
 			if _, err := f.WriteString(t.Like.TweetID + "\n"); err != nil {
 				return err
 			}
