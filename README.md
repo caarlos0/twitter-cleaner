@@ -2,6 +2,14 @@
 
 Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
 
+## Install
+
+```sh
+brew install caarlos0/tap/twitter-cleaner
+```
+
+Or use any of the other provided means in the [releases page][https://github.com/caarlos0/twitter-cleaner/releases].
+
 ## Usage
 
 - download the archive for your OS in the [releases page](https://github.com/caarlos0/twitter-cleaner/releases/latest).
