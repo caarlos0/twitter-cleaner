@@ -27,3 +27,10 @@ nfpms:
       - deb
       - apk
       - rpm
+brews:
+- tap:
+    owner: caarlos0
+    name: homebrew-tap
+  homepage: https://carlosbecker.com
+  description: Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
+  folder: Formula
