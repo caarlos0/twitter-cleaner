@@ -8,21 +8,29 @@ Automatically delete tweets, retweets, and favorites from your timeline, and, if
 brew install caarlos0/tap/twitter-cleaner
 ```
 
-Or use any of the other provided means in the [releases page][https://github.com/caarlos0/twitter-cleaner/releases].
+Or use any of the other provided means in the [releases page](https://github.com/caarlos0/twitter-cleaner/releases).
 
 ## Usage
 
-- download the archive for your OS in the [releases page](https://github.com/caarlos0/twitter-cleaner/releases/latest).
-- extract it
-- run it with `--help` to get the full list of options
+You'll need [API keys](https://github.com/caarlos0/twitter-cleaner#api-keys).
+Once you have them, you can either create a `.env` file or via args, you check
+both the args and environment variable names using `twitter-cleaner --help`.
 
-### Usage tips and details
+If you have a `.env` file, basic usage is:
 
-- Twitter secrets are also auto-loaded from a `.env` file if it exists;
+```sh
+twitter-cleaner
+```
+
+So, basically:
+
+- Twitter secrets need to be provided via flags, environment variables or `.env`;
 - By default, it will delete everything older than 30 days (720 hours), this can be customized via `--max-age`;
-- You can also prevent specific tweet IDs or tweets with specific words from being deleted by using the `--keeplist` flag;
+- You can prevent specific tweet IDs or tweets with specific words from being deleted by using the `--keeplist` flag;
 
-## Deleting from twitter archive
+## Advanced Usage
+
+### Deleting from twitter archive
 
 The twitter API only returns the last N tweets, so you can't get your whole history from it. You can, though, request your twitter data and use it to delete things.
 
@@ -43,7 +51,7 @@ This is to prevent re-trying every tweet if you stop and run it again. If you wa
 
 > PS: Deleting your archive will probably span across a couple of days.
 
-## Rate limits
+### Rate limits
 
 Once a rate limit is hit, twitter-cleaner will wait and try again. So you can basically just leave it alone and it will figure itself out.
 
