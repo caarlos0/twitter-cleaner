@@ -30,11 +30,12 @@ var (
 	accessToken       = app.Flag("twitter-access-token", "your twitter access token").Envar("TWITTER_ACCESS_TOKEN").Required().String()
 	accessTokenSecret = app.Flag("twitter-access-token-secret", "your twitter access token secret").Envar("TWITTER_ACCESS_TOKEN_SECRET").Required().String()
 	archiveFolder     = app.Flag("twitter-archive-path", "path to the twitter archive, if you pass this flag, twitter-cleaner will try to delete your tweets from there too").File()
+	dryRun            = app.Flag("dry-run", "do not actually ").Bool()
 	debug             = app.Flag("debug", "enables debug logs").Bool()
 )
 
 func getTimeline(api *anaconda.TwitterApi, maxID string) ([]anaconda.Tweet, error) {
-	var args = url.Values{}
+	args := url.Values{}
 	args.Add("count", "200")        // Twitter only returns most recent 20 tweets by default, so override
 	args.Add("include_rts", "true") // When using count argument, RTs are excluded, so include them as recommended
 	if len(maxID) > 0 {
@@ -49,7 +50,7 @@ func getTimeline(api *anaconda.TwitterApi, maxID string) ([]anaconda.Tweet, erro
 }
 
 func getFaves(api *anaconda.TwitterApi, maxID string) ([]anaconda.Tweet, error) {
-	var args = url.Values{}
+	args := url.Values{}
 	args.Add("count", "200") // Twitter only returns most recent 20 tweets by default, so override
 	if len(maxID) > 0 {
 		args.Set("max_id", maxID)
@@ -116,6 +117,9 @@ func deleteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 			"time": createdTime,
 			"text": t.Text,
 		}).Debug("unretweeting tweet")
+		if *dryRun {
+			return true, nil
+		}
 		_, derr = api.UnRetweet(t.Id, true)
 	} else if !t.Favorited {
 		log.WithFields(log.Fields{
@@ -123,6 +127,9 @@ func deleteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 			"time": createdTime,
 			"text": t.Text,
 		}).Debug("deleting tweet")
+		if *dryRun {
+			return true, nil
+		}
 		_, derr = api.DeleteTweet(t.Id, true)
 	}
 
@@ -188,6 +195,9 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 		"time": createdTime,
 		"text": t.Text,
 	}).Debug("unfavoriting tweet")
+	if *dryRun {
+		return true, nil
+	}
 	if _, err := api.Unfavorite(t.Id); err != nil {
 		var aerr *anaconda.ApiError
 		if errors.As(err, &aerr) {
@@ -206,7 +216,7 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 }
 
 func deleteFromData(api *anaconda.TwitterApi) error {
-	var data = *archiveFolder
+	data := *archiveFolder
 	bts, err := ioutil.ReadFile(filepath.Join(data.Name(), "data/tweet.js"))
 	if err != nil {
 		return err
@@ -222,7 +232,7 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 		return err
 	}
 
-	f, err := os.OpenFile(filepath.Join(data.Name(), "data/handled_tweets.txt"), os.O_APPEND|os.O_RDWR|os.O_CREATE, 0644)
+	f, err := os.OpenFile(filepath.Join(data.Name(), "data/handled_tweets.txt"), os.O_APPEND|os.O_RDWR|os.O_CREATE, 0o644)
 	if err != nil {
 		return err
 	}
@@ -235,7 +245,7 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 
 	var deletedCount int64
 	for _, t := range tweets {
-		var log = log.WithField("id", t.Tweet.ID)
+		log := log.WithField("id", t.Tweet.ID)
 		if bytes.Contains(ids, []byte(t.Tweet.ID)) {
 			log.Debug("ignoring tweet handled in previous runs")
 			continue
@@ -308,7 +318,7 @@ func getTweet(api *anaconda.TwitterApi, s string) (anaconda.Tweet, error) {
 }
 
 func unlikeFromData(api *anaconda.TwitterApi) error {
-	var data = *archiveFolder
+	data := *archiveFolder
 
 	bts, err := ioutil.ReadFile(filepath.Join(data.Name(), "data/like.js"))
 	if err != nil {
@@ -325,7 +335,7 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 		return err
 	}
 
-	f, err := os.OpenFile(filepath.Join(data.Name(), "data/handled_likes.txt"), os.O_APPEND|os.O_RDWR|os.O_CREATE, 0644)
+	f, err := os.OpenFile(filepath.Join(data.Name(), "data/handled_likes.txt"), os.O_APPEND|os.O_RDWR|os.O_CREATE, 0o644)
 	if err != nil {
 		return err
 	}
@@ -338,7 +348,7 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 
 	var unfavCount int64
 	for _, t := range likes {
-		var log = log.WithField("id", t.Like.TweetID)
+		log := log.WithField("id", t.Like.TweetID)
 		if bytes.Contains(ids, []byte(t.Like.TweetID)) {
 			log.Debug("ignoring tweet handled in previous runs")
 			continue
