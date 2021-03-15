@@ -303,7 +303,7 @@ func getTweet(api *anaconda.TwitterApi, s string) (anaconda.Tweet, error) {
 			}
 			if aerr.StatusCode == 401 {
 				log.WithError(err).Warn("got 401, will try to delete/unfavorite anyway")
-				// I'm haven't bloecked myself, so its probably a RT or a fav...
+				// I haven't blocked myself, so its probably a RT or a fav...
 				return anaconda.Tweet{
 					Id:        id,
 					Retweeted: true,
