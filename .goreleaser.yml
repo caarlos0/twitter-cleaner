@@ -47,7 +47,7 @@ dockers:
   - "--label=org.opencontainers.image.name={{.ProjectName}}"
   - "--label=org.opencontainers.image.revision={{.FullCommit}}"
   - "--label=org.opencontainers.image.version={{.Version}}"
-  - "--label=org.opencontainers.image.source={{.GitURL}}"
+  - "--label=org.opencontainers.image.source=https://github.com/caarlos0/twitter-cleaner"
   - "--platform=linux/amd64"
 - image_templates:
   - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-arm64'
@@ -59,7 +59,7 @@ dockers:
   - "--label=org.opencontainers.image.name={{.ProjectName}}"
   - "--label=org.opencontainers.image.revision={{.FullCommit}}"
   - "--label=org.opencontainers.image.version={{.Version}}"
-  - "--label=org.opencontainers.image.source={{.GitURL}}"
+  - "--label=org.opencontainers.image.source=https://github.com/caarlos0/twitter-cleaner"
   - "--platform=linux/arm64"
   goarch: arm64
 docker_manifests:
