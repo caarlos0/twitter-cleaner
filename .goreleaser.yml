@@ -1,6 +1,8 @@
 before:
   hooks:
-    - go mod download
+    - go mod tidy
+gomod:
+  proxy: true
 builds:
   - env:
       - CGO_ENABLED=0
@@ -34,3 +36,38 @@ brews:
   homepage: https://carlosbecker.com
   description: Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
   folder: Formula
+dockers:
+- image_templates:
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-amd64'
+  dockerfile: Dockerfile
+  use_buildx: true
+  build_flag_templates:
+  - "--pull"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.name={{.ProjectName}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+  - "--label=org.opencontainers.image.source={{.GitURL}}"
+  - "--platform=linux/amd64"
+- image_templates:
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-arm64'
+  dockerfile: Dockerfile
+  use_buildx: true
+  build_flag_templates:
+  - "--pull"
+  - "--label=org.opencontainers.image.created={{.Date}}"
+  - "--label=org.opencontainers.image.name={{.ProjectName}}"
+  - "--label=org.opencontainers.image.revision={{.FullCommit}}"
+  - "--label=org.opencontainers.image.version={{.Version}}"
+  - "--label=org.opencontainers.image.source={{.GitURL}}"
+  - "--platform=linux/arm64"
+  goarch: arm64
+docker_manifests:
+- name_template: 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}'
+  image_templates:
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-amd64'
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-arm64'
+- name_template: 'ghcr.io/caarlos0/twitter-cleaner:latest'
+  image_templates:
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-amd64'
+  - 'ghcr.io/caarlos0/twitter-cleaner:{{ .Tag }}-arm64'
