@@ -66,7 +66,7 @@ func getFaves(api *anaconda.TwitterApi, maxID string) ([]anaconda.Tweet, error) 
 func isWhitelisted(id int64, text string) bool {
 	tweetID := strconv.FormatInt(id, 10)
 	for _, w := range *keeplist {
-		if w == tweetID || strings.Contains(text, w) {
+		if w == tweetID || strings.Contains(strings.ToLower(text), strings.ToLower(w)) {
 			return true
 		}
 	}
