@@ -2,14 +2,6 @@
 
 Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
 
-## Install
-
-```sh
-brew install caarlos0/tap/twitter-cleaner
-```
-
-Or use any of the other provided means in the [releases page](https://github.com/caarlos0/twitter-cleaner/releases).
-
 ## Usage
 
 You'll need [API keys](https://github.com/caarlos0/twitter-cleaner#api-keys).
@@ -62,6 +54,55 @@ To get all the keys needed, you'll need to [create a new twitter app](https://de
 Then, go to the app's *Settings* > *Keys and tokens*. There you'll find the **API key & secret** (`--twitter-consumer-key` and `--twitter-consumer-secret`) and can generate the **Access token & secret** (`--twitter-access-token` and `--twitter-access-token-secret`).
 
 You can pass them via flags, environment variables or via `.env` file.
+
+## Install
+
+**homebrew**:
+
+```sh
+brew install caarlos0/tap/twitter-cleaner
+```
+
+**docker**:
+
+```sh
+docker run --rm caarlos0/twitter-cleaner
+```
+
+**apt**:
+
+```sh
+echo 'deb [trusted=yes] https://repo.caarlos0.dev/apt/ /' | sudo tee /etc/apt/sources.list.d/caarlos0.list
+sudo apt update
+sudo apt install twitter-cleaner
+```
+
+**yum**:
+
+```sh
+echo '[caarlos0]
+name=caarlos0
+baseurl=https://repo.caarlos0.dev/yum/
+enabled=1
+gpgcheck=0' | sudo tee /etc/yum.repos.d/caarlos0.repo
+sudo yum install twitter-cleaner
+```
+
+**deb/rpm/apk**:
+
+Download the `.apk`, `.deb` or `.rpm` from the [releases page][releases] and install with the appropriate commands.
+
+**manually**:
+
+Download the pre-compiled binaries from the [releases page][releases] or clone the repo build from source.
+
+[releases]: https://github.com/caarlos0/twitter-cleaner/releases
+
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/caarlos0/twitter-cleaner.svg)](https://starchart.cc/caarlos0/twitter-cleaner)
+
 
 ## Acknowledgements
 
