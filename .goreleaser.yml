@@ -1,12 +1,21 @@
 variables:
-  description: Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well
+  homepage: https://github.com/caarlos0/twitter-cleaner
+  repository: https://github.com/caarlos0/twitter-cleaner
+  description: Automatically delete tweets, retweets, and favorites from your timeline, and, if provided, from your twitter archive as well.
 
 includes:
 - from_url:
-    url: https://raw.githubusercontent.com/caarlos0/.goreleaserfiles/main/build.yml
+    url: https://raw.githubusercontent.com/caarlos0/goreleaserfiles/main/build.yml
 - from_url:
-    url: https://raw.githubusercontent.com/caarlos0/.goreleaserfiles/main/package.yml
+    url: https://raw.githubusercontent.com/caarlos0/goreleaserfiles/main/release.yml
 - from_url:
-    url: https://raw.githubusercontent.com/caarlos0/.goreleaserfiles/main/release.yml
+    url: https://raw.githubusercontent.com/caarlos0/goreleaserfiles/main/docker.yml
 - from_url:
-    url: https://raw.githubusercontent.com/caarlos0/.goreleaserfiles/main/docker.yml
+    url: https://raw.githubusercontent.com/caarlos0/goreleaserfiles/main/package.yml
+
+before:
+  hooks:
+    - go mod tidy
+
+furies:
+  - account: caarlos0
