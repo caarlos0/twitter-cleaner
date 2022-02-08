@@ -31,6 +31,7 @@ var (
 	accessTokenSecret = app.Flag("twitter-access-token-secret", "your twitter access token secret").Envar("TWITTER_ACCESS_TOKEN_SECRET").Required().String()
 	archiveFolder     = app.Flag("twitter-archive-path", "path to the twitter archive, if you pass this flag, twitter-cleaner will try to delete your tweets from there too").File()
 	dryRun            = app.Flag("dry-run", "do not actually ").Bool()
+	keepLikes         = app.Flag("keep-likes", "do not unfavorite tweets").Bool()
 	debug             = app.Flag("debug", "enables debug logs").Bool()
 )
 
@@ -404,9 +405,11 @@ func main() {
 			log.WithError(err).Fatal("failed to delete tweets from archive")
 		}
 
-		log.Infof("unfavoriting tweets from twitter archive at %s", (*archiveFolder).Name())
-		if err := unlikeFromData(api); err != nil {
-			log.WithError(err).Fatal("failed to unfavorite tweets from archive")
+		if !*keepLikes {
+			log.Infof("unfavoriting tweets from twitter archive at %s", (*archiveFolder).Name())
+			if err := unlikeFromData(api); err != nil {
+				log.WithError(err).Fatal("failed to unfavorite tweets from archive")
+			}
 		}
 	}
 
@@ -415,9 +418,11 @@ func main() {
 		log.WithError(err).Fatal("failed to delete tweets from timeline")
 	}
 
-	log.Info("unfavoriting tweets from twitter timeline")
-	if err := unFavorite(api); err != nil {
-		log.WithError(err).Fatal("failed to unfavorite tweets from timeline")
+	if !*keepLikes {
+		log.Info("unfavoriting tweets from twitter timeline")
+		if err := unFavorite(api); err != nil {
+			log.WithError(err).Fatal("failed to unfavorite tweets from timeline")
+		}
 	}
 
 	log.Info("done")
