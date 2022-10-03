@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -15,8 +15,7 @@ import (
 
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/alecthomas/kingpin"
-	"github.com/apex/log"
-	"github.com/apex/log/handlers/cli"
+	"github.com/caarlos0/log"
 	_ "github.com/joho/godotenv/autoload"
 )
 
@@ -218,7 +217,7 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 
 func deleteFromData(api *anaconda.TwitterApi) error {
 	data := *archiveFolder
-	bts, err := ioutil.ReadFile(filepath.Join(data.Name(), "data/tweet.js"))
+	bts, err := os.ReadFile(filepath.Join(data.Name(), "data/tweet.js"))
 	if err != nil {
 		return err
 	}
@@ -239,7 +238,7 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 	}
 	defer f.Close()
 
-	ids, err := ioutil.ReadAll(f)
+	ids, err := io.ReadAll(f)
 	if err != nil {
 		return err
 	}
@@ -321,7 +320,7 @@ func getTweet(api *anaconda.TwitterApi, s string) (anaconda.Tweet, error) {
 func unlikeFromData(api *anaconda.TwitterApi) error {
 	data := *archiveFolder
 
-	bts, err := ioutil.ReadFile(filepath.Join(data.Name(), "data/like.js"))
+	bts, err := os.ReadFile(filepath.Join(data.Name(), "data/like.js"))
 	if err != nil {
 		return err
 	}
@@ -342,7 +341,7 @@ func unlikeFromData(api *anaconda.TwitterApi) error {
 	}
 	defer f.Close()
 
-	ids, err := ioutil.ReadAll(f)
+	ids, err := io.ReadAll(f)
 	if err != nil {
 		return err
 	}
@@ -389,7 +388,6 @@ func main() {
 	app.HelpFlag.Short('h')
 	_ = kingpin.MustParse(app.Parse(os.Args[1:]))
 
-	log.SetHandler(cli.Default)
 	if *debug {
 		log.SetLevel(log.DebugLevel)
 	}
