@@ -8,17 +8,24 @@ permissions:
   contents: read
 
 jobs:
+  govulncheck:
+    uses: caarlos0/meta/.github/workflows/govulncheck.yml@main
+    with:
+      cache: true
+      go-version: '>=1.19.1'
+  semgrep:
+    uses: caarlos0/meta/.github/workflows/semgrep.yml@main
+  ruleguard:
+    uses: caarlos0/meta/.github/workflows/ruleguard.yml@main
+    with:
+      cache: true
+      go-version: '>=1.19.1'
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-go@v3
         with:
-          go-version: ~1.18
-      - uses: actions/cache@v3.0.8
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
+          go-version: '>=1.19.1'
+          cache: true
       - run: go test -v ./...
