@@ -13,8 +13,8 @@ github.com/aymanbagabas/go-osc52 v1.2.1 h1:q2sWUyDcozPLcLabEMd+a+7Ea2DitxZVN9hTx
 github.com/aymanbagabas/go-osc52 v1.2.1/go.mod h1:zT8H+Rk4VSabYN90pWyugflM3ZhpTZNC7cASDfUCdT4=
 github.com/azr/backoff v0.0.0-20160115115103-53511d3c7330 h1:ekDALXAVvY/Ub1UtNta3inKQwZ/jMB/zpOtD8rAYh78=
 github.com/azr/backoff v0.0.0-20160115115103-53511d3c7330/go.mod h1:nH+k0SvAt3HeiYyOlJpLLv1HG1p7KWP7qU9QPp2/pCo=
-github.com/caarlos0/log v0.1.10 h1:kHKiXTKEeK019o7QQWXRbHVKFrYYljxuQ7vF2taEA3M=
-github.com/caarlos0/log v0.1.10/go.mod h1:BLxpdZKXvWBjB6fshua4c8d7ApdYjypEDok6ibt+pXk=
+github.com/caarlos0/log v0.2.1 h1:E5vf0Sg24tUbrGanknDu2UH0CZq6cCColThb8gTQnHQ=
+github.com/caarlos0/log v0.2.1/go.mod h1:BLxpdZKXvWBjB6fshua4c8d7ApdYjypEDok6ibt+pXk=
 github.com/charmbracelet/lipgloss v0.6.1-0.20220911181249-6304a734e792 h1:VfX981snWr7d4yvFAJYCN3S2sOsweiM6BsqZgFPY65c=
 github.com/charmbracelet/lipgloss v0.6.1-0.20220911181249-6304a734e792/go.mod h1:sOPE4igPEyZ5Q75T0PYIMqA40cL+r0NrLlMJxr01aiE=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
 	github.com/alecthomas/kingpin v2.2.6+incompatible
-	github.com/caarlos0/log v0.1.10
+	github.com/caarlos0/log v0.2.1
 	github.com/joho/godotenv v1.4.0
 )
 
