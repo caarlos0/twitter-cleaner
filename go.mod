@@ -6,7 +6,7 @@ require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
 	github.com/alecthomas/kingpin v2.2.6+incompatible
 	github.com/caarlos0/log v0.1.10
-	github.com/joho/godotenv v1.4.0
+	github.com/joho/godotenv v1.5.1
 )
 
 require (
