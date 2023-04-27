@@ -217,7 +217,7 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 
 func deleteFromData(api *anaconda.TwitterApi) error {
 	data := *archiveFolder
-	bts, err := os.ReadFile(filepath.Join(data.Name(), "data/tweet.js"))
+	bts, err := os.ReadFile(filepath.Join(data.Name(), "data/tweets.js"))
 	if err != nil {
 		return err
 	}
@@ -228,7 +228,7 @@ func deleteFromData(api *anaconda.TwitterApi) error {
 		} `json:"tweet"`
 	}
 
-	if err := json.Unmarshal(bytes.TrimPrefix(bts, []byte("window.YTD.tweet.part0 = ")), &tweets); err != nil {
+	if err := json.Unmarshal(bytes.TrimPrefix(bts, []byte("window.YTD.tweets.part0 = ")), &tweets); err != nil {
 		return err
 	}
 
