@@ -1,6 +1,6 @@
 module github.com/caarlos0/twitter-cleaner
 
-go 1.19
+go 1.20
 
 require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
