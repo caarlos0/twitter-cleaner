@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/ChimeraCoder/anaconda v2.0.0+incompatible
 	github.com/alecthomas/kingpin v2.2.6+incompatible
-	github.com/caarlos0/log v0.2.2
+	github.com/caarlos0/log v0.4.0
 	github.com/joho/godotenv v1.5.1
 )
 
@@ -18,6 +18,7 @@ require (
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
 	github.com/dustin/go-jsonpointer v0.0.0-20160814072949-ba0abeacc3dc // indirect
 	github.com/dustin/gojson v0.0.0-20160307161227-2e71ec9dd5ad // indirect
+	github.com/elliotchance/orderedmap/v2 v2.2.0 // indirect
 	github.com/garyburd/go-oauth v0.0.0-20180319155456-bca2e7f09a17 // indirect
 	github.com/lucasb-eyer/go-colorful v1.2.0 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
