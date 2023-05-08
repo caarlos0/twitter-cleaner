@@ -112,21 +112,19 @@ func deleteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 
 	var derr error
 	if t.Retweeted {
-		log.WithFields(log.Fields{
-			"id":   t.Id,
-			"time": createdTime,
-			"text": t.Text,
-		}).Debug("unretweeting tweet")
+		log.WithField("id", t.Id).
+			WithField("time", createdTime).
+			WithField("text", t.Text).
+			Debug("unretweeting tweet")
 		if *dryRun {
 			return true, nil
 		}
 		_, derr = api.UnRetweet(t.Id, true)
 	} else if !t.Favorited {
-		log.WithFields(log.Fields{
-			"id":   t.Id,
-			"time": createdTime,
-			"text": t.Text,
-		}).Debug("deleting tweet")
+		log.WithField("id", t.Id).
+			WithField("time", createdTime).
+			WithField("text", t.Text).
+			Debug("deleting tweet")
 		if *dryRun {
 			return true, nil
 		}
@@ -190,11 +188,10 @@ func unFavoriteTweet(api *anaconda.TwitterApi, t anaconda.Tweet) (bool, error) {
 		return false, nil
 	}
 
-	log.WithFields(log.Fields{
-		"id":   t.Id,
-		"time": createdTime,
-		"text": t.Text,
-	}).Debug("unfavoriting tweet")
+	log.WithField("id", t.Id).
+		WithField("time", createdTime).
+		WithField("text", t.Text).
+		Debug("unfavoriting tweet")
 	if *dryRun {
 		return true, nil
 	}
