@@ -21,7 +21,7 @@ jobs:
         with:
           go-version: stable
           cache: true
-      - uses: sigstore/cosign-installer@v3.0.4
+      - uses: sigstore/cosign-installer@v3.0.5
       - uses: anchore/sbom-action/download-syft@v0.14.2
       - uses: docker/setup-qemu-action@v2
       - uses: docker/login-action@v2
